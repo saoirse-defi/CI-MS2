@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moralis Dapp - CI MS3</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+</head>
+
+<body>
+    <h1>Dapp Test - Authenication with Metamask</h1>
+    <span id="logged">You are logged out.</span><br><br>
+
+    <button id="btn-login">Moralis Login</button>
+    <button id="btn-logout" style="display: none;">Logout</button>
+    <button id="btn-get-stats">Refresh Stats</button><br><br>
+
+    <div id="balance">
+        <span id="balanceText" style="display:none">Your Ethereum Address is:</span>
+        <h5 id="balanceElm"></h5>
+    </div>
+
+    <div id="tokens">
+        <span id="token-span" style="display:none;">Your favourite ERC-20 tokens are:  </span>
+        <h5 id="token-fav"></h5>
+    </div>
+
+    <div id="gas" style="display: none;">
+        <span id="gas-text">The total amount of gas spent:  </span>
+        <h5 id="total-gas"></h5>
+    </div>
+
+    <form method="POST" name="account-creation" id="account-creation">
+        <label>Add a nickname for this address: </label>
+        <input type="text" class="form-control" placeholder="Nickname" name="nickname" id="nickname" required/>
+        <button type="submit" id="accountSubmissionBtn">Submit</button>    
+    </form>
+
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript">
+        Moralis.initialize("ODLoFKUVQy2afCMmNL784vXb2DgVvjxntguF4x3c");
+        Moralis.serverURL = "https://btjfheuh8ncx.moralis.io:2053/server";
+        init();
+    </script>
+</body>
+
+</html>
