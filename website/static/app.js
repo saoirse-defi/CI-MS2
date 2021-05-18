@@ -1,4 +1,4 @@
-
+const ethAddress = document.getElementById('ethAddress');
 
 async function init(){
     window.web3 = await Moralis.Web3.enable();
@@ -15,7 +15,7 @@ async function login() {
 
     userAddress = user['attributes'].accounts[0]; //location of ethereum address within the ParseUser object
     
-    balanceElm.innerText = userAddress; //displays address to the user
+    ethAddress.innerText = userAddress; //displays address to the user
 }
 
 async function getAddress(user){
