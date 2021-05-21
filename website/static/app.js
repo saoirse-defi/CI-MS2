@@ -1,4 +1,4 @@
-const ethAddress = document.getElementById('ethAddress');
+/*const ethAddress = document.getElementById('ethAddress');
 
 Moralis.initialize("ODLoFKUVQy2afCMmNL784vXb2DgVvjxntguF4x3c");
 Moralis.serverURL = "https://btjfheuh8ncx.moralis.io:2053/server";
@@ -32,4 +32,4 @@ async function getAddress(user){
 }
 
 
-document.getElementById("btn-login").onclick = login();
+document.getElementById("btn-login").onclick = login();*/ 
