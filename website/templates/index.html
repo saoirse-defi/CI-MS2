@@ -18,10 +18,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" id="/login" href="/login">Login</a>
-                <a class="nav-item nav-link" id="/logout" href="/logout">Logout</a>
-                <a class="nav-item nav-link" id="/signup" href="/signup">Sign Up</a>
+                {% if user.is_authenticated %}
                 <a class="nav-item nav-link" id="/home" href="/home">Home</a>
+                <a class="nav-item nav-link" id="/logout" href="/logout">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" id="/login" href="/login">Login</a>
+                <a class="nav-item nav-link" id="/signup" href="/signup">Sign Up</a>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -57,33 +60,25 @@
         {% endblock %}
     </div>
 
-    <h1>Dapp Test - Authenication with Metamask</h1>
-    <span id="logged">You are logged out.</span><br><br>
+    {% if user.is_authenticated %}
+        {% if eth %}
+        <div id="balance">
+            <span id="balanceText">Your Ethereum Address is:</span>
+            <h5 id="ethAddress">{{eth}}</h5>
+        </div>
+        <div id="tokens">
+            <span id="token-span">Your favourite ERC-20 tokens are: </span>
+            <h5 id="token-fav"></h5>
+        </div>
+        <div id="gas">
+            <span id="gas-text">The total amount of gas spent: </span>
+            <h5 id="total-gas"></h5>
+        </div>
+        {% endif %}
+    {% else %}
+    <button id="btn-login">Link Metamask</button>
+    {% endif %}
 
-    <button id="btn-login">Moralis Login</button>
-    <button id="btn-logout" style="display: none;">Logout</button>
-    <button id="btn-get-stats">Refresh Stats</button><br><br>
-
-    <div id="balance">
-        <span id="balanceText" style="display:none">Your Ethereum Address is:</span>
-        <h5 id="ethAddress"></h5>
-    </div>
-
-    <div id="tokens">
-        <span id="token-span" style="display:none;">Your favourite ERC-20 tokens are: </span>
-        <h5 id="token-fav"></h5>
-    </div>
-
-    <div id="gas" style="display: none;">
-        <span id="gas-text">The total amount of gas spent: </span>
-        <h5 id="total-gas"></h5>
-    </div>
-
-    <form method="POST" name="account-creation" id="account-creation">
-        <label>Add a nickname for this address: </label>
-        <input type="text" class="form-control" placeholder="Nickname" name="nickname" id="nickname" required />
-        <button type="submit" id="accountSubmissionBtn">Submit</button>
-    </form>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

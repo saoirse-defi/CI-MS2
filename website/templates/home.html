@@ -1,5 +1,22 @@
 {% extends "index.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>This is the home page.</h1>
+    {% if user.is_authenticated %}
+        {% if eth %}
+        <div id="balance">
+            <span id="balanceText">Your Ethereum Address is:</span>
+            <h5 id="ethAddress">{{ eth }}</h5>
+        </div>
+        <div id="tokens">
+            <span id="token-span">Your favourite ERC-20 tokens are: </span>
+            <h5 id="token-fav"></h5>
+        </div>
+        <div id="gas">
+            <span id="gas-text">The total amount of gas spent: </span>
+            <h5 id="total-gas"></h5>
+        </div>
+        {% endif %}
+    {% else %}
+    <button id="btn-login">Link Metamask</button>
+    {% endif %}
 {% endblock %}
