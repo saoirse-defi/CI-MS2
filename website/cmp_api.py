@@ -1,11 +1,12 @@
 from requests import Session
 import json
 
-coins = ['BTC', 'ETH', 'LTC', 'ADA', 'BNB', 'DOT']
+coins = ['BTC','ETH', 'LTC', 'ADA', 'BNB', 'DOT']
+
 
 #  for each coin in the coins array, add price to price array
 def get_price_data():
-    result_arr = []
+    price_dict = {}
 
     for coin in coins:
 
@@ -27,10 +28,8 @@ def get_price_data():
 
         response = session.get(URL, params=parameters)
 
-        result_arr.append("{:.2f}".format(json.loads(
+        price_dict[coin] = "{:.2f}".format(json.loads(
                         response.text)
-                        ['data'][coin]['quote']['USD']['price']))
+                        ['data'][coin]['quote']['USD']['price'])
 
-    print(result_arr)
-
-    return result_arr
+    return price_dict
