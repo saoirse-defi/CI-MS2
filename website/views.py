@@ -7,7 +7,8 @@ from website import cmp_api
 bitcoin_price = "{:.2f}".format(coinmarketcap_api.get_coin_price('BTC'))
 ethereum_price = "{:.2f}".format(coinmarketcap_api.get_coin_price('ETH'))
 litecoin_price = "{:.2f}".format(coinmarketcap_api.get_coin_price('LTC'))
-result_arr = cmp_api.get_price_data()
+
+price_dict = cmp_api.get_price_data()
 
 views = Blueprint('views', __name__)
 
@@ -21,7 +22,7 @@ def home():
                            bitcoin_price=bitcoin_price, 
                            ethereum_price=ethereum_price,
                            litecoin_price=litecoin_price,
-                           result_arr=result_arr)
+                           price_dict=price_dict)
 
 
 
