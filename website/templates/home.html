@@ -20,36 +20,18 @@
     <button id="btn-login">Link Metamask</button>
     {% endif %}
 
-    <div class="container">
-        <h5>{{ result_arr }}</h5>
+    <!--Loops through coins in the coins array and creates a table with pricing-->
+    <div class="container-fluid" id="price-container"></div>
+    {% for coin in price_dict %}
+        <div class="row">
+            <div class="col-md-7">
+                <span>{{ coin }}</span>
+            </div>
+            <div class="col-md-5">
+                <span>{{ price_dict[coin] }}</span>
+            </div>
+        </div>
+    {% endfor %}
     </div>
-
-    <div class="container-fluid" id="price-container" style="width: 15%; float: right;">
-        <div class="row">
-            <div class="col-md-7">
-               <span>Bitcoin</span>
-            </div>
-            <div class="col-md-5">
-                <span>{{ bitcoin_price }}</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-7">
-               <span>Ethereum</span>
-            </div>
-            <div class="col-md-5">
-                <span>{{ ethereum_price }}</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-7">
-               <span>Litecoin</span>
-            </div>
-            <div class="col-md-5">
-                <span>{{ litecoin_price }}</span>
-            </div>
-        </div>
-    </div>
-    
 
 {% endblock %}
