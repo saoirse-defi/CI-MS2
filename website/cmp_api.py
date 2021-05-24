@@ -1,7 +1,7 @@
 from requests import Session
 import json
 
-coins = ['BTC','ETH', 'LTC', 'ADA', 'BNB', 'DOT']
+coins = ['BTC', 'ETH', 'LTC', 'ADA', 'BNB', 'DOT']
 
 
 #  for each coin in the coins array, add price to price array

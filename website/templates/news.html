@@ -1,0 +1,13 @@
+{% extends "index.html" %} {% block title %}News{% endblock %}
+
+{% block content %}
+
+<div class="container" id="news-container">
+{% for link in links %}  <!--displays each link in the links list-->
+    <div class="news-article">
+        {{ link|safe }}  <!--Allows html to be injected-->
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
