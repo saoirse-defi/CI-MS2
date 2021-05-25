@@ -5,7 +5,7 @@
 <div class="container" id="news-container">
 {% for link in links %}  <!--displays each link in the links list-->
     <div class="news-article">
-        {{ link|safe }}  <!--Allows html to be injected-->
+        <a class="news-link" href={{ link['link']|safe }} target="_blank">{{ link['text']|safe }}</a>
     </div>
 {% endfor %}
 </div>
