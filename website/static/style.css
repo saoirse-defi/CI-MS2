@@ -1,0 +1,19 @@
+#news-container{
+    display: block;
+    width: 60%;
+}
+
+.news-article{
+    margin: 5px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.news-link{
+    color: black;
+    text-decoration-line: none;
+}
+
+.news-link:hover{
+    color: orangered;
+}
