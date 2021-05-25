@@ -8,15 +8,19 @@ def scrape(term):
 
     soup = BeautifulSoup(source, 'lxml')
 
-    results = soup.find_all('div', class_='props')
+    results = soup.find_all('div', class_='article')
 
-    links = []
+    news_list = []
 
-    #  adds news links to array but the base URL still needs to be added before functional
+    #  adds news links to array but the base URL 
+    #  still needs to be added before functional
     for result in results:
-        links.append(result.h4.a)
-    
-    return links
 
+        news = {
+            'link': 'https://cryptonews.com/news' + result.a['href'],
+            'text': result.h4.text,
+        }
 
+        news_list.append(news)
 
+    return news_list
