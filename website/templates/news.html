@@ -20,7 +20,7 @@
 {% endfor %}
     </div>
     <div class="container" id="nft-news-container">
-        <h2 class="news-title">NFT News</h2>
+        <h2 class="news-title">NFT News</h2> <!--Needs testing, localhost not working-->
 {% for link in links_nft %}  <!--displays each link in the nft links list-->
         <div class="news-article">
             <a class="news-link" href={{ link['link']|safe }} target="_blank">{{ link['text']|safe }}</a>
