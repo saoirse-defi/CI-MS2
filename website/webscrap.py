@@ -19,6 +19,7 @@ def scrape(term):
         news = {
             'link': 'https://cryptonews.com/news' + result.a['href'],
             'text': result.h4.text,
+            'image': result.a.img['src']  # needs testing, localhost not working
         }
 
         news_list.append(news)
