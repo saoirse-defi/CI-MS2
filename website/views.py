@@ -8,7 +8,11 @@ price_dict = cmp_api.get_price_data()
 
 search_terms = ['bitcoin-news/', 'ethereum-news/', 'nft-news/']
 
-links = webscrap.scrape(search_terms[0])
+links_bitcoin = webscrap.scrape(search_terms[0])
+
+links_ethereum = webscrap.scrape(search_terms[1])
+
+links_nft = webscrap.scrape(search_terms[2])
 
 views = Blueprint('views', __name__)
 
@@ -26,7 +30,9 @@ def home():
 def news():
     return render_template('news.html',
                            user=current_user,
-                           links=links)
+                           links_bitcoin=links_bitcoin,
+                           links_ethereum=links_ethereum,
+                           links_nft=links_nft)
 
 
 
