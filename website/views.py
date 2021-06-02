@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request
-import requests
 from flask_login import current_user, login_required
 from website import cmp_api
 from website import webscrap
@@ -9,6 +8,8 @@ from website import models
 address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
 
 transaction_list = etherscan_api.etherscan_transactions(address)
+
+transaction_table_headings = ['Date created', 'From', 'To', 'Value', 'Gas Price', 'Gas Spent']
 
 price_dict = cmp_api.get_price_data()
 
@@ -30,7 +31,8 @@ def home():
     return render_template('home.html',
                            user=current_user,
                            price_dict=price_dict,
-                           transaction_list=transaction_list)
+                           transaction_list=transaction_list,
+                           transaction_table_headings=transaction_table_headings)
 
 
 @views.route('/news')
