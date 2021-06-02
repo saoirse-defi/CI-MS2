@@ -50,9 +50,9 @@ def signup():
             flash('Email Address is too short', category='error')
         elif len(nickname) < 2:
             flash('Your nickname is too short', category='error')
-        elif len(eth) < 40:
-            flash('The format of your Ethereum public address is incorrect',
-                  category='error')
+        elif eth:
+            if len(eth) < 40:
+                flash('The format of your Ethereum public address is incorrect', category='error')
         elif password != _password:
             flash('Your passwords dont match', category='error')
         elif len(password) < 8:
