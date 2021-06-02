@@ -17,13 +17,13 @@ def etherscan_transactions(address):
 
     for transaction in transactions:
         data = {
-            'time': time.time(transaction['timestamp']),
+            'time': time.strftime("%a, %d %b %Y %H:%M:%S %Z", time.localtime(int(transaction['timeStamp']))),
             'from': transaction['from'],
             'to': transaction['to'],
-            'value': Web3.fromWei(transaction['value'], 'ether'),  # in Gwei
+            'value': Web3.fromWei(int(transaction['value']), 'ether'),  # in Gwei
             'error': transaction['isError'],
-            'gas_price': Web3.fromWei(transaction['gasPrice']),
-            'gas_used': Web3.fromWei(transaction['gasPrice']) * Web3.fromWei(transaction['gasUsed'])
+            'gas_price': Web3.fromWei(int(transaction['gasPrice']), 'ether') * int('1000000000'),
+            'gas_used': Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether')
         }
         transaction_list.append(data)
     
