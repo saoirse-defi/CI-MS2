@@ -1,26 +1,27 @@
-{% extends "index.html" %} {% block title %}News{% endblock %}
+{% extends "base.html" %} {% block title %}News{% endblock %}
 
 {% block content %}
 
 <div class="container" id="news-container">
-    <div class="container" id="bitcoin-news-container">
-        <h2 class="news-title">Bitcoin News</h2>
+    <div class="container col-md-4" id="bitcoin-news-container">
+        <h2 class="news-title">Bitcoin</h2>
 {% for link in links_bitcoin %}  <!--displays each link in the bitcoin links list-->
         <div class="news-article">
             <a class="news-link" href={{ link['link']|safe }} target="_blank">{{ link['text']|safe }}</a>
+            <img class="news-img" src={{ link['image']|safe }} alt="News Article Image" />
         </div>
 {% endfor %}
     </div>
-    <div class="container" id="ethereum-news-container">
-        <h2 class="news-title">Ethereum News</h2>
+    <div class="container col-md-4" id="ethereum-news-container">
+        <h2 class="news-title">Ethereum</h2>
 {% for link in links_ethereum %}  <!--displays each link in the ethereum links list-->
         <div class="news-article">
             <a class="news-link" href={{ link['link']|safe }} target="_blank">{{ link['text']|safe }}</a>
         </div>
 {% endfor %}
     </div>
-    <div class="container" id="nft-news-container">
-        <h2 class="news-title">NFT News</h2> <!--Needs testing, localhost not working-->
+    <div class="container col-md-4" id="nft-news-container">
+        <h2 class="news-title">NFTs</h2> <!--Needs testing, localhost not working-->
 {% for link in links_nft %}  <!--displays each link in the nft links list-->
         <div class="news-article">
             <a class="news-link" href={{ link['link']|safe }} target="_blank">{{ link['text']|safe }}</a>

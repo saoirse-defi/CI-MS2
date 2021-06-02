@@ -1,37 +1,45 @@
-{% extends "index.html" %} {% block title %}Home{% endblock %}
+{% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
+        <h4>{{current_user.nickname}}'s Profile</h4>
         {% if eth %}
-        <div id="balance">
-            <span id="balanceText">Your Ethereum Address is:</span>
-            <h5 id="ethAddress">{{ eth }}</h5>
+        <div class="container" id="eth-container"></div>
+            <div id="balance">
+                <span id="balanceText">Your Ethereum Address is:</span>
+                <h5 id="ethAddress">{{ eth }}</h5>
+            </div>
+            <div id="tokens">
+                <span id="token-span">Your favourite ERC-20 tokens are: </span>
+                <h5 id="token-fav"></h5>
+            </div>
+            <div id="gas">
+                <span id="gas-text">The total amount of gas spent: </span>
+                <h5 id="total-gas"></h5>
+            </div>
         </div>
-        <div id="tokens">
-            <span id="token-span">Your favourite ERC-20 tokens are: </span>
-            <h5 id="token-fav"></h5>
-        </div>
-        <div id="gas">
-            <span id="gas-text">The total amount of gas spent: </span>
-            <h5 id="total-gas"></h5>
-        </div>
+        {% else %}
+        <h4>Please sign a transaction using Metamask to customise your Hashboard: </h4>
+        <button id="btn-login">Link Metamask</button>
         {% endif %}
-    {% else %}
-    <button id="btn-login">Link Metamask</button>
-    {% endif %}
 
-    <!--Loops through coins in the coins array and creates a table with pricing-->
-    <div class="container-fluid" id="price-container"></div>
-    {% for coin in price_dict %}
-        <div class="row">
-            <div class="col-md-7">
-                <span>{{ coin }}</span>
-            </div>
-            <div class="col-md-5">
-                <span>{{ price_dict[coin] }}</span>
-            </div>
+        <div class="container">
+            <h5>Eth Address:</h5>
+            <span id="ethAddress"></span>
         </div>
-    {% endfor %}
-    </div>
+
+        <div class="container">
+            <h5>Ethereum Transactions: </h5>
+            {% for data in transaction_list %}
+                {% if data['error'] == 1 %}
+                <div class="transaction">
+                    <div class="transaction-time">{{ data['time']|safe }}</div>
+                    <div class="transaction-to">{{ data['to']|safe }}</div>
+                    <div class="transaction-from">{{ data['from']|safe }}</div>
+                    <div class="transaction-gas">{{ data['gas_used']|safe }}</div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
 
 {% endblock %}
