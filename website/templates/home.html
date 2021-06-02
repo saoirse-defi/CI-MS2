@@ -30,16 +30,40 @@
         <div class="container">
             <h5>Ethereum Transactions: </h5>
             {% for data in transaction_list %}
-                {% if data['error'] == 1 %}
+                {% if data['error'] == '1' %}
                 <div class="transaction">
                     <div class="transaction-time">{{ data['time']|safe }}</div>
                     <div class="transaction-to">{{ data['to']|safe }}</div>
                     <div class="transaction-from">{{ data['from']|safe }}</div>
-                    <div class="transaction-gas">{{ data['gas_used']|safe }}</div>
+                    <div class="transaction-value">{{ data['value']|safe }}</div>
+                    <div class="transaction-gas-price">{{ data['gas_price']|safe }} Gwei</div>
+                    <div class="transaction-gas">{{ data['gas_used']|safe }} ETH</div>
                 </div>
                 {% endif %}
             {% endfor %}
         </div>
 
+        <div class="container md-2 mb-2">
+            <table data-toggle="table" data-patination="true" data-search="true">
+                <thead>
+                    <tr>
+                        {% for header in transaction_table_headings %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                    
+                    {% for data in transaction_list %}
+                    <tr>
+                        <td>{{ data['time']|safe }}</td>
+                        <td>{{ data['to']|safe }}</td>
+                        <td>{{ data['from']|safe }}</td>
+                        <td>{{ data['value']|safe }}</td>
+                        <td>{{ data['gas_price']|safe }}</td>
+                        <td>{{ data['gas_used']|safe }}</td>
+                    </tr>
+                    {% endfor %}
+                </thead>
+            </table>
+        </div>
 
 {% endblock %}
