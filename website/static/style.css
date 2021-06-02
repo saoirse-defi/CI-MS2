@@ -1,6 +1,9 @@
 #news-container{
-    display: block;
-    width: 60%;
+    display: flex;
+}
+
+.news-title{
+    text-align: center;
 }
 
 .news-article{
@@ -16,4 +19,14 @@
 
 .news-link:hover{
     color: orangered;
+}
+
+#eth-container{
+    float: left;
+}
+
+#price-container{
+    width: 25%;
+    border: 5px solid red;
+    float: right;
 }
