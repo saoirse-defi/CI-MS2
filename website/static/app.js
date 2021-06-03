@@ -60,6 +60,11 @@ async function login(){
 
 document.addEventListener("DOMContentLoaded", function () {
     init();
+    $('#ethTable').DataTable({
+        searching: false,
+        ordering: false
+    });
+    $('td').tooltip(); //bootstrap tooltip 
 });
 
 document.getElementById("btn-login").onclick = login();
