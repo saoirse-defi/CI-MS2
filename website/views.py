@@ -25,7 +25,7 @@ views = Blueprint('views', __name__)
 def home():
     address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
     transaction_list = etherscan_api.etherscan_transactions(address)
-    transaction_table_headings = ['Date created', 'To', 'From', 'Value[ETH]', 'Gas Price[Gwei]', 'Gas Spent[ETH]']
+    transaction_table_headings = ['Date created', 'To', 'From', 'Value', 'Gas Price', 'Gas Spent']
 
     def shorten(string):
         return "0x..." + string[38:]
