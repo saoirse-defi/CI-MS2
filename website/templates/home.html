@@ -25,7 +25,7 @@
         <div class="container md-2 mb-2" id="transaction-table-to">
             <h4 class="text-center">Etherum Transaction History</h4>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true">
+                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="ethTable">
                     <thead>
                         <tr class="bg-dark text-white">
                             {% for header in transaction_table_headings %}
@@ -36,11 +36,15 @@
                         {% for data in transaction_list %}                
                             <tr>
                                 <td>{{ data['time']|safe }}</td>
-                                <td>{{ shorten(data['to']|safe) }}</td>
-                                <td>{{ shorten(data['from']|safe) }}</td>
-                                <td>{{ threeDecimals(data['value']) }}</td>
-                                <td>{{ toInt(data['gas_price']|safe) }}</td>
-                                <td>{{ data['gas_used'] }}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['from'|safe] }}>{{ shorten(data['from']|safe) }}</td>
+                                <td>{{ threeDecimals(data['value']) }} Eth</td>
+                                <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
+                                <td>{{ data['gas_used'] }} Eth</td>
                             </tr>
                         {% endfor %}
                     </thead>
