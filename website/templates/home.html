@@ -2,11 +2,11 @@
 
 {% block content %}
         <h4>{{current_user.nickname}}'s Profile</h4>
-        {% if eth %}
+        {% if address %}
         <div class="container" id="eth-container"></div>
             <div id="balance">
                 <span id="balanceText">Your Ethereum Address is:</span>
-                <h5 id="ethAddress">{{ eth }}</h5>
+                <h5 id="ethAddress">{{ address }}</h5>
             </div>
             <div id="tokens">
                 <span id="token-span">Your favourite ERC-20 tokens are: </span>
@@ -22,48 +22,30 @@
         <button id="btn-login">Link Metamask</button>
         {% endif %}
 
-        <div class="container">
-            <h5>Eth Address:</h5>
-            <span id="ethAddress"></span>
-        </div>
-
-        <div class="container">
-            <h5>Ethereum Transactions: </h5>
-            {% for data in transaction_list %}
-                {% if data['error'] == '1' %}
-                <div class="transaction">
-                    <div class="transaction-time">{{ data['time']|safe }}</div>
-                    <div class="transaction-to">{{ data['to']|safe }}</div>
-                    <div class="transaction-from">{{ data['from']|safe }}</div>
-                    <div class="transaction-value">{{ data['value']|safe }}</div>
-                    <div class="transaction-gas-price">{{ data['gas_price']|safe }} Gwei</div>
-                    <div class="transaction-gas">{{ data['gas_used']|safe }} ETH</div>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <div class="container md-2 mb-2">
-            <table data-toggle="table" data-patination="true" data-search="true">
-                <thead>
-                    <tr>
-                        {% for header in transaction_table_headings %}
-                        <th>{{ header }}</th>
+        <div class="container md-2 mb-2" id="transaction-table-to">
+            <h4 class="text-center">Etherum Transaction History</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true">
+                    <thead>
+                        <tr class="bg-dark text-white">
+                            {% for header in transaction_table_headings %}
+                            <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                        
+                        {% for data in transaction_list %}                
+                            <tr>
+                                <td>{{ data['time']|safe }}</td>
+                                <td>{{ shorten(data['to']|safe) }}</td>
+                                <td>{{ shorten(data['from']|safe) }}</td>
+                                <td>{{ threeDecimals(data['value']) }}</td>
+                                <td>{{ toInt(data['gas_price']|safe) }}</td>
+                                <td>{{ data['gas_used'] }}</td>
+                            </tr>
                         {% endfor %}
-                    </tr>
-                    
-                    {% for data in transaction_list %}
-                    <tr>
-                        <td>{{ data['time']|safe }}</td>
-                        <td>{{ data['to']|safe }}</td>
-                        <td>{{ data['from']|safe }}</td>
-                        <td>{{ data['value']|safe }}</td>
-                        <td>{{ data['gas_price']|safe }}</td>
-                        <td>{{ data['gas_used']|safe }}</td>
-                    </tr>
-                    {% endfor %}
-                </thead>
-            </table>
+                    </thead>
+                </table>
+            </div>
         </div>
 
 {% endblock %}
