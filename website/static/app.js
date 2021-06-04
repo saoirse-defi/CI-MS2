@@ -61,8 +61,8 @@ async function login(){
 document.addEventListener("DOMContentLoaded", function () {
     init();
     $('#ethTable').DataTable({
-        searching: false,
-        ordering: false
+        searching: true,
+        paging: true
     });
     $('td').tooltip(); //bootstrap tooltip 
 });
