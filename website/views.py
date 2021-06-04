@@ -25,10 +25,16 @@ views = Blueprint('views', __name__)
 def home():
     address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
     transaction_list = etherscan_api.etherscan_transactions(address)
-    transaction_table_headings = ['Date created', 'To', 'From', 'Value', 'Gas Price', 'Gas Spent']
+    erc20_transaction_list = etherscan_api.erc20_transactions(address)
+    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Value', 'Gas Price', 'Gas Spent']
+    gas_price_dict = etherscan_api.etherscan_gas()
+    gas_total = etherscan_api.find_total_gas_spent(transaction_list)
 
     def shorten(string):
         return "0x..." + string[38:]
+    
+    def shorten2(string):
+        return "0x..." + string[62:]
 
     def toInt(x):
         return int(float(x))
@@ -43,8 +49,12 @@ def home():
                            transaction_table_headings=transaction_table_headings,
                            address=address,
                            shorten=shorten,
+                           shorten2=shorten2,
                            toInt=toInt,
-                           threeDecimals=threeDecimals)
+                           threeDecimals=threeDecimals,
+                           gas_price_dict=gas_price_dict,
+                           gas_total=gas_total,
+                           erc20_transaction_list=erc20_transaction_list)
 
 
 @views.route('/news')
