@@ -3,7 +3,7 @@
 {% block content %}
         <h4>{{current_user.nickname}}'s Profile</h4>
         {% if address %}
-        <div class="container" id="eth-container"></div>
+        <div class="container-fluid" id="eth-container"></div>
             <div id="balance">
                 <span id="balanceText">Your Ethereum Address is:</span>
                 <h5 id="ethAddress">{{ address }}</h5>
@@ -14,7 +14,7 @@
             </div>
             <div id="gas">
                 <span id="gas-text">The total amount of gas spent: </span>
-                <h5 id="total-gas"></h5>
+                <h5 id="total-gas">{{ gas_total }} Eth</h5>
             </div>
         </div>
         {% else %}
@@ -22,7 +22,26 @@
         <button id="btn-login">Link Metamask</button>
         {% endif %}
 
-        <div class="container md-2 mb-2" id="transaction-table-to">
+        <div class="container-fluid">
+            <h4 class="text-center">Current Gas Prices</h4>
+            <div class="container" id="gas-container">
+                <div class="col-md-4 text-center gas-single">
+                    <h4>{{ gas_price_dict['SafeGasPrice']}} Gwei</h4>
+                    <span>Safe</span>
+                </div>
+                <div class="col-md-4 text-center gas-single">
+                    <h4>{{ gas_price_dict['ProposeGasPrice']}} Gwei</h4>
+                    <span>Normal</span>
+                </div>
+                <div class="col-md-4 text-center gas-single">
+                    <h4>{{ gas_price_dict['FastGasPrice']}} Gwei</h4>
+                    <span>Fast</span>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="container-fluid md-2 mb-2" id="transaction-table">
             <h4 class="text-center">Etherum Transaction History</h4>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="ethTable">
@@ -36,6 +55,7 @@
                         {% for data in transaction_list %}                
                             <tr>
                                 <td>{{ data['time']|safe }}</td>
+                                <td>{{ shorten2(data['hash']) }}</td>
                                 <td data-bs-toggle="tooltip" 
                                     data-bs-placement="bottom" 
                                     title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
@@ -50,6 +70,52 @@
                     </thead>
                 </table>
             </div>
+        </div>
+
+
+        <div class="container-fluid md-2 mb-2" id="erc20-transaction-table">
+            <h4 class="text-center">ERC-20 Transaction History</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="erc20-table">
+                    <thead>
+                        <tr class="bg-dark text-white">
+                            {% for header in transaction_table_headings %}
+                            <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                        
+                        {% for data in erc20_transaction_list %}                
+                            <tr>
+                                <td>{{ data['time'] }}</td>
+                                <td>{{ shorten2(data['hash']) }}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['from'|safe] }}>{{ shorten(data['from']|safe) }}</td>
+                                <td>{{ threeDecimals(data['value']) }} {{ data['token_symbol']}}</td>
+                                <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
+                                <td>{{ data['gas_used'] }} Eth</td>
+                            </tr>
+                        {% endfor %}
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <!--Loops through coins in the coins array and creates a table with pricing-->
+        <div class="container-fluid md-2 mb-2" id="p-container"></div>
+        {% for coin in price_dict %}
+            <div class="row">
+                <div class="col-md-6">
+                    <span>{{ coin }}</span>
+                </div>
+                <div class="col-md-6">
+                    <span>{{ price_dict[coin] }}</span>
+                </div>
+            </div>
+        {% endfor %}
         </div>
 
 {% endblock %}
