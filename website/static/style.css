@@ -25,8 +25,18 @@
     float: left;
 }
 
-#price-container{
-    width: 25%;
-    border: 5px solid red;
-    float: right;
+#p-container{
+   width: 25%;
+   display: block;
+   position: fixed;
+   top: 100px;
+   color: red;
+}
+
+#gas-container{
+    display: flex;
+}
+
+.gas-single{
+    
 }
