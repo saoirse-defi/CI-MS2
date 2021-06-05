@@ -26,9 +26,14 @@ def home():
     address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
     transaction_list = etherscan_api.etherscan_transactions(address)
     erc20_transaction_list = etherscan_api.erc20_transactions(address)
-    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Value', 'Gas Price', 'Gas Spent']
+    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Value', 'Token Involved', 'Gas Price', 'Gas Spent']
     gas_price_dict = etherscan_api.etherscan_gas()
     gas_total = etherscan_api.find_total_gas_spent(transaction_list)
+    fav_coins = etherscan_api.find_fav_coins(erc20_transaction_list)
+
+    highest_gas_eth = etherscan_api.find_highest_gas(transaction_list)
+    highest_gas_erc20 = etherscan_api.find_highest_gas(erc20_transaction_list)
+    highest_gas = int(max(highest_gas_eth, highest_gas_erc20))
 
     def shorten(string):
         return "0x..." + string[38:]
@@ -54,7 +59,9 @@ def home():
                            threeDecimals=threeDecimals,
                            gas_price_dict=gas_price_dict,
                            gas_total=gas_total,
-                           erc20_transaction_list=erc20_transaction_list)
+                           erc20_transaction_list=erc20_transaction_list,
+                           fav_coins=fav_coins,
+                           highest_gas=highest_gas)
 
 
 @views.route('/news')
