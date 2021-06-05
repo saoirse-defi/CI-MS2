@@ -70,11 +70,29 @@ def etherscan_gas():
     return gas_price_dict
 
 
-def find_total_gas_spent(list):
+def find_total_gas_spent(items):
     total = 0
-    for item in list:
+    for item in items:
         total += item['gas_used']
     
     return total
 
 
+def find_highest_gas(items):
+    highest_gas = 0
+    for item in items:
+        if(highest_gas < item['gas_price']):
+            highest_gas = item['gas_price']
+    
+    return highest_gas
+
+
+def find_fav_coins(items):
+    coins = []
+    for item in items:
+        coins.append(item['token_name'])
+    
+    fav_coins = list(dict.fromkeys(coins))  # new list containing no duplicates
+    return fav_coins
+
+    
