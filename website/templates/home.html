@@ -21,6 +21,18 @@
         <h4>Please sign a transaction using Metamask to customise your Hashboard: </h4>
         <button id="btn-login">Link Metamask</button>
         {% endif %}
+        
+        <div class="container" id="favourite-coins">
+            <span>Favourite Coins:</span><br>
+            {{ fav_coins }}
+        </div>
+
+
+        <div class="container" id="highest-gas">
+            <span>Your highest gas transaction: </span>
+            <h5>{{ highest_gas }} Gwei</h5>
+        </div>
+
 
         <div class="container-fluid">
             <h4 class="text-center">Current Gas Prices</h4>
@@ -55,14 +67,23 @@
                         {% for data in transaction_list %}                
                             <tr>
                                 <td>{{ data['time']|safe }}</td>
-                                <td>{{ shorten2(data['hash']) }}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['hash'|safe] }}>{{ shorten2(data['hash']) }}</td>
                                 <td data-bs-toggle="tooltip" 
                                     data-bs-placement="bottom" 
                                     title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
                                 <td data-bs-toggle="tooltip" 
                                     data-bs-placement="bottom" 
                                     title={{ data['from'|safe] }}>{{ shorten(data['from']|safe) }}</td>
-                                <td>{{ threeDecimals(data['value']) }} Eth</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['value'|safe] }}>{{ threeDecimals(data['value']) }}</td>
+                                {% if data['token_symbol'] %}
+                                <td>{{ data['token_symbol']}}</td>
+                                {% else %}
+                                <td>Eth</td>
+                                {% endif %}
                                 <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
                                 <td>{{ data['gas_used'] }} Eth</td>
                             </tr>
@@ -87,14 +108,19 @@
                         {% for data in erc20_transaction_list %}                
                             <tr>
                                 <td>{{ data['time'] }}</td>
-                                <td>{{ shorten2(data['hash']) }}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['hash'|safe] }}>{{ shorten2(data['hash']) }}</td>
                                 <td data-bs-toggle="tooltip" 
                                     data-bs-placement="bottom" 
                                     title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
                                 <td data-bs-toggle="tooltip" 
                                     data-bs-placement="bottom" 
                                     title={{ data['from'|safe] }}>{{ shorten(data['from']|safe) }}</td>
-                                <td>{{ threeDecimals(data['value']) }} {{ data['token_symbol']}}</td>
+                                <td data-bs-toggle="tooltip" 
+                                    data-bs-placement="bottom" 
+                                    title={{ data['value'|safe] }}>{{ threeDecimals(data['value']) }}</td>
+                                <td>{{ data['token_symbol']}}</td>
                                 <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
                                 <td>{{ data['gas_used'] }} Eth</td>
                             </tr>
