@@ -4,6 +4,7 @@ from website import cmp_api
 from website import webscrap
 from website import etherscan_api
 from website import models
+from website import mediastack
 
 
 price_dict = cmp_api.get_price_data()
@@ -35,6 +36,8 @@ def home():
     highest_gas_erc20 = etherscan_api.find_highest_gas(erc20_transaction_list)
     highest_gas = int(max(highest_gas_eth, highest_gas_erc20))
 
+    stream = mediastack.mediastack_scrape('cardano')
+
     def shorten(string):
         return "0x..." + string[38:]
     
@@ -61,7 +64,8 @@ def home():
                            gas_total=gas_total,
                            erc20_transaction_list=erc20_transaction_list,
                            fav_coins=fav_coins,
-                           highest_gas=highest_gas)
+                           highest_gas=highest_gas,
+                           stream=stream)
 
 
 @views.route('/news')
