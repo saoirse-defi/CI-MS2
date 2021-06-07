@@ -36,7 +36,7 @@ def home():
     highest_gas_erc20 = etherscan_api.find_highest_gas(erc20_transaction_list)
     highest_gas = int(max(highest_gas_eth, highest_gas_erc20))
 
-    stream = mediastack.mediastack_scrape('cardano')
+    bitcoin_stream = mediastack.mediastack_scrape('bitcoin')
 
     def shorten(string):
         return "0x..." + string[38:]
