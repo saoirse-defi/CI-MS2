@@ -1,14 +1,11 @@
 from flask import request
 import requests
 import time
-from datetime import datetime
-
-now = datetime.now()
-todays_date = now.strftime('%Y-%m-%d')  # get today's date for api request
 
 
 def mediastack_scrape(keyword):
     API_KEY = "ae1c214b8542a940ac326187f8ace980"
+    todays_date = time.strftime('%Y-%m-%d')  # get today's date for api request
 
     url = "http://api.mediastack.com/v1/news?access_key=" + API_KEY + "&date=" + todays_date + "&languages=en&limit=10&sort=popularity&keywords=" + keyword
 
