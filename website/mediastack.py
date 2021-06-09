@@ -1,6 +1,9 @@
 from flask import request
 import requests
 import time
+from datetime import datetime, timezone
+from dateutil import parser
+from promise import Promise
 
 
 def mediastack_scrape(keyword):
@@ -15,16 +18,29 @@ def mediastack_scrape(keyword):
 
     article_list = []
 
-    for data in data_stream:
-        article = {
-            'author': data['author'],
-            'title': data['title'],
-            'description': data['description'],
-            'url': data['url'],
-            'source': data['source'],
-            'published': data['published_at']
-        }
+    if (data_stream is not None):
+        for data in data_stream:
+            article = {
+                'author': data['author'],
+                'title': data['title'],
+                'description': data['description'],
+                'url': data['url'],
+                'source': data['source'],
+                'published': parser.parse(data['published_at'])
+            }
 
-        article_list.append(article)
+            article_list.append(article)
 
     return article_list
+
+
+def altcoin_news():
+    token_names = ['cardano', 'polkadot', 'binance', 'litecoin', 'dogecoin', 'XRP', 'uniswap', 'solana', 'chainlink']
+    altcoin_article_list = []
+
+    for token in token_names:
+        if(mediastack_scrape(token) is not None):
+            for item in mediastack_scrape(token):
+                altcoin_article_list.append(item)
+
+    return altcoin_article_list
