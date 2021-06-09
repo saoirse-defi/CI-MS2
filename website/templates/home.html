@@ -34,7 +34,17 @@
         </div>
 
         <div class="container">
-            {{ stream }}
+            <h4 class="text-center">Average Gas Spent</h4>
+            <div class="container" id="average-gas-container">
+                <div class="col-md-6 text-center average-single">
+                    <h4>{{ average_gas_ethereum }} Gwei</h4>
+                    <span>ETH</span>
+                </div>
+                <div class="col-md-6 text-center average-single">
+                    <h4>{{ average_gas_erc20 }} Gwei</h4>
+                    <span>ERC-20</span>
+                </div>
+            </div>
         </div>
         
         <div class="container-fluid">
@@ -55,83 +65,6 @@
             </div>
         </div>
         
-
-        <div class="container-fluid md-2 mb-2" id="transaction-table">
-            <h4 class="text-center">Etherum Transaction History</h4>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="ethTable">
-                    <thead>
-                        <tr class="bg-dark text-white">
-                            {% for header in transaction_table_headings %}
-                            <th>{{ header }}</th>
-                            {% endfor %}
-                        </tr>
-                        
-                        {% for data in transaction_list %}                
-                            <tr>
-                                <td>{{ data['time']|safe }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['hash'|safe] }}>{{ shorten2(data['hash']) }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['from'|safe] }}>{{ shorten(data['from']|safe) }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['value'|safe] }}>{{ threeDecimals(data['value']) }}</td>
-                                {% if data['token_symbol'] %}
-                                <td>{{ data['token_symbol']}}</td>
-                                {% else %}
-                                <td>Eth</td>
-                                {% endif %}
-                                <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
-                                <td>{{ data['gas_used'] }} Eth</td>
-                            </tr>
-                        {% endfor %}
-                    </thead>
-                </table>
-            </div>
-        </div>
-
-
-        <div class="container-fluid md-2 mb-2" id="erc20-transaction-table">
-            <h4 class="text-center">ERC-20 Transaction History</h4>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="erc20-table">
-                    <thead>
-                        <tr class="bg-dark text-white">
-                            {% for header in transaction_table_headings %}
-                            <th>{{ header }}</th>
-                            {% endfor %}
-                        </tr>
-                        
-                        {% for data in erc20_transaction_list %}                
-                            <tr>
-                                <td>{{ data['time'] }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['hash'|safe] }}>{{ shorten2(data['hash']) }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['to'|safe] }}>{{ shorten(data['to']|safe) }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['from'|safe] }}>{{ shorten(data['from']|safe) }}</td>
-                                <td data-bs-toggle="tooltip" 
-                                    data-bs-placement="bottom" 
-                                    title={{ data['value'|safe] }}>{{ threeDecimals(data['value']) }}</td>
-                                <td>{{ data['token_symbol']}}</td>
-                                <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
-                                <td>{{ data['gas_used'] }} Eth</td>
-                            </tr>
-                        {% endfor %}
-                    </thead>
-                </table>
-            </div>
-        </div>
 
         <!--Loops through coins in the coins array and creates a table with pricing-->
         <div class="container-fluid md-2 mb-2" id="p-container"></div>
