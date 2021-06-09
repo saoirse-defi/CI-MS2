@@ -35,8 +35,45 @@
 
 #gas-container{
     display: flex;
+    border: 5px solid black;
+    padding: 10px;
 }
 
 .gas-single{
     
+}
+
+#average-gas-container{
+    display: flex;
+    border: 5px solid black;
+    padding: 10px;
+}
+
+.average-single{
+    
+}
+
+#news2-container{
+    display: flex;
+}
+
+.stream-header{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.altcoin-article{
+
+}
+
+.altcoin-link{
+
+}
+
+.altcoin-source{
+
+}
+
+.altcoin-date{
+
 }
