@@ -24,7 +24,7 @@ def etherscan_transactions(address):
             'value': Web3.fromWei(float(transaction['value']), 'ether'),  # in Gwei
             'error': transaction['isError'],
             'gas_price': Web3.fromWei(int(transaction['gasPrice']), 'ether') * int('1000000000'),
-            'gas_used': Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether')
+            'gas_used': round(Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether'), 6)
         }
         transaction_list.append(data)
     
@@ -49,7 +49,7 @@ def erc20_transactions(address):
             'to': transaction['to'],
             'value': Web3.fromWei(float(transaction['value']), 'ether'),  # in Gwei
             'gas_price': Web3.fromWei(int(transaction['gasPrice']), 'ether') * int('1000000000'),
-            'gas_used': Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether'),
+            'gas_used': round(Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether'), 6),
             'token_name': transaction['tokenName'],
             'token_symbol': transaction['tokenSymbol']
         }
@@ -75,7 +75,7 @@ def find_total_gas_spent(items):
     for item in items:
         total += item['gas_used']
     
-    return total
+    return round(total, 3)
 
 
 def find_highest_gas(items):
@@ -85,6 +85,15 @@ def find_highest_gas(items):
             highest_gas = item['gas_price']
     
     return highest_gas
+
+
+def find_average_gas(items):
+    total = 0
+    for item in items:
+        total += item['gas_price']
+ 
+    average = total / len(items)
+    return round(average, 0)
 
 
 def find_fav_coins(items):
