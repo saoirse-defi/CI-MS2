@@ -2,8 +2,38 @@
 
 {% block content %}
 
-<div class="container" id="news2-container">
-    <h4>Bitcoin News</h4>
+<div class="container-fluid" id="news2-container">
+    <div class="container col-md-4" id="bitcoin-stream">
+        <h4 class="stream-header">Bitcoin News</h4>
+        {% for article in bitcoin_stream %}
+        <div class="bitcoin-article">
+            <a class="article-link" href={{ article['url']|safe }} target="_blank">{{ article['title']|safe }}</a>
+            <span class="article-source"> - {{ article['author']|safe }}</span>
+            <span class="article-date"> - {{ article['published']|safe }}</span> <!--Would like to add time elapsed since published-->
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container col-md-4" id="ethereum-stream">
+        <h4 class="stream-header">Ethereum News</h4>
+        {% for article in ethereum_stream %}
+        <div class="ethereum-article">
+            <a class="article-link" href={{ article['url']|safe }} target="_blank">{{ article['title']|safe }}</a>
+            <span class="article-source"> - {{ article['author']|safe }}</span>
+            <span class="article-date"> - {{ article['published']|safe }}</span> <!--Would like to add time elapsed since published-->
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container col-md-4" id="altcoin-stream">
+        <h4 class="stream-header">Altcoin News</h4>
+        {% for article in altcoin_stream %}
+        <div class="altcoin-article">
+            <a class="article-link" href={{ article['url']|safe }} target="_blank">{{ article['title']|safe }}</a>
+            <span class="article-source"> - {{ article['author']|safe }}</span>
+            <span class="article-date"> - {{ article['published']|safe }}</span> <!--Would like to add time elapsed since published-->
+            <span class="article-date"> - {{ (current_time - article['published']) }}</span>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
