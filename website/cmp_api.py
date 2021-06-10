@@ -1,14 +1,14 @@
 from requests import Session
 import json
 
-coins = ['BTC', 'ETH', 'LTC', 'ADA', 'BNB', 'DOT', 'AMPL', 'XRP', 'LINK']
+# coins = ['BTC', 'ETH', 'LTC', 'ADA', 'BNB', 'DOT', 'AMPL', 'XRP', 'LINK']
 
 
 #  for each coin in the coins array, add price to price array
-def get_price_data():
+def get_price_data(coins_array):
     price_dict = {}
 
-    for coin in coins:
+    for coin in coins_array:
 
         URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 
@@ -28,8 +28,12 @@ def get_price_data():
 
         response = session.get(URL, params=parameters)
 
-        price_dict[coin] = "{:.2f}".format(json.loads(
-                        response.text)
-                        ['data'][coin]['quote']['USD']['price'])
+        try:
+            price_dict[coin] = "{:.2f}".format(json.loads(
+                            response.text)
+                            ['data'][coin]['quote']['USD']['price'])
+        except Exception:
+            print(f'{coin} is not covered under the scope of this request.')
+            pass
 
     return price_dict
