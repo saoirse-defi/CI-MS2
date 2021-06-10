@@ -7,7 +7,7 @@ from promise import Promise
 
 
 def mediastack_scrape(keyword):
-    API_KEY = "ae1c214b8542a940ac326187f8ace980"
+    API_KEY = "191f63f844300b21e5471668e31c36b2"
     todays_date = time.strftime('%Y-%m-%d')  # get today's date for api request
 
     url = "http://api.mediastack.com/v1/news?access_key=" + API_KEY + "&date=" + todays_date + "&languages=en&limit=10&sort=popularity&keywords=" + keyword
@@ -34,13 +34,16 @@ def mediastack_scrape(keyword):
     return article_list
 
 
-def altcoin_news():
-    token_names = ['cardano', 'polkadot', 'binance', 'litecoin', 'dogecoin', 'XRP', 'uniswap', 'solana', 'chainlink']
+def altcoin_news(token_list):
+    #  token_names = ['cardano', 'polkadot', 'binance', 'litecoin', 'dogecoin', 'XRP', 'uniswap', 'solana', 'chainlink']
     altcoin_article_list = []
 
-    for token in token_names:
+    for token in token_list:
         if(mediastack_scrape(token) is not None):
             for item in mediastack_scrape(token):
-                altcoin_article_list.append(item)
+                if token not in item['title']:
+                    altcoin_article_list.append(item)
+                else:
+                    continue
 
     return altcoin_article_list
