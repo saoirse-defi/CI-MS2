@@ -68,13 +68,13 @@
 
         <!--Loops through coins in the coins array and creates a table with pricing-->
         <div class="container-fluid md-2 mb-2" id="p-container"></div>
-        {% for coin in price_dict %}
+        {% for price in price_dict %}
             <div class="row">
                 <div class="col-md-6">
-                    <span>{{ coin }}</span>
+                    <span>{{ price }}</span>
                 </div>
                 <div class="col-md-6">
-                    <span>{{ price_dict[coin] }}</span>
+                    <span>${{ price_dict[price] }}</span>
                 </div>
             </div>
         {% endfor %}
