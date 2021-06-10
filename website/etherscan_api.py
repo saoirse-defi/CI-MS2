@@ -99,9 +99,16 @@ def find_average_gas(items):
 def find_fav_coins(items):
     coins = []
     for item in items:
-        coins.append(item['token_name'])
+        coins.append(item['token_symbol'])
     
     fav_coins = list(dict.fromkeys(coins))  # new list containing no duplicates
     return fav_coins
 
     
+def find_fav_coin_names(items):
+    coins = []
+    for item in items:
+        coins.append(item['token_name'])
+    
+    fav_coins = list(dict.fromkeys(coins))  # new list containing no duplicates
+    return fav_coins
