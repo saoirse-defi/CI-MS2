@@ -58,13 +58,32 @@ async function login(){
     }
 }
 
+    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Value', 'Token Involved', 'Gas Price', 'Gas Spent']
+
+
+$(document).ready(function(){
+    $('#ethTable').DataTable({
+        "columns": [
+            {"data": "date"},
+            {"data": "hash"},
+            {"data": "to"},
+            {"data": "from"},
+            {"data": "value"},
+            {"data": "token"},
+            {"data": "gasPrice"},
+            {"data": "gasSpent"}
+        ],
+        "pagingType": "simple"
+    });
+    $('#erc20-table').DataTable({
+
+    });
+    $('.dataTables_length').addClass('bs-select');
+    $('td').tooltip(); //bootstrap tooltip 
+})
+
 document.addEventListener("DOMContentLoaded", function () {
     init();
-    $('#ethTable').DataTable({
-        searching: true,
-        paging: true
-    });
-    $('td').tooltip(); //bootstrap tooltip 
 });
 
 document.getElementById("btn-login").onclick = login();
