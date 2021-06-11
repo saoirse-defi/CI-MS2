@@ -31,6 +31,9 @@ def home():
     gas_price_dict = etherscan_api.etherscan_gas()
     gas_total = etherscan_api.find_total_gas_spent(transaction_list)
     fav_coins = etherscan_api.find_fav_coins(erc20_transaction_list)
+    fav_coin_names = etherscan_api.find_fav_coin_names(erc20_transaction_list)
+
+    fav_token = etherscan_api.find_fav_token(erc20_transaction_list)
 
     price_dict = cmp_api.get_price_data(fav_coins)
 
@@ -54,6 +57,8 @@ def home():
                            gas_total=gas_total,
                            erc20_transaction_list=erc20_transaction_list,
                            fav_coins=fav_coins,
+                           fav_token=fav_token,
+                           fav_coin_names=fav_coin_names,
                            highest_gas=highest_gas,
                            average_gas_ethereum=average_gas_ethereum,
                            average_gas_erc20=average_gas_erc20)
