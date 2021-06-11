@@ -2,6 +2,7 @@ from flask import request
 import requests
 import time
 from web3 import Web3
+from statistics import mode
 
 
 def etherscan_transactions(address):
@@ -17,7 +18,7 @@ def etherscan_transactions(address):
 
     for transaction in transactions:
         data = {
-            'time': time.strftime("%d %b %Y %H:%M", time.localtime(int(transaction['timeStamp']))),
+            'time': time.strftime("%Y-%m-%d %H:%M", time.localtime(int(transaction['timeStamp']))),
             'hash': transaction['hash'],
             'from': transaction['from'],
             'to': transaction['to'],
@@ -43,7 +44,7 @@ def erc20_transactions(address):
 
     for transaction in erc20:
         data = {
-            'time': time.strftime("%d %b %Y %H:%M", time.localtime(int(transaction['timeStamp']))),
+            'time': time.strftime("%Y-%m-%d %H:%M", time.localtime(int(transaction['timeStamp']))),
             'hash': transaction['hash'],
             'from': transaction['from'],
             'to': transaction['to'],
@@ -112,3 +113,11 @@ def find_fav_coin_names(items):
     
     fav_coins = list(dict.fromkeys(coins))  # new list containing no duplicates
     return fav_coins
+
+
+def find_fav_token(items):
+    coins = []
+    for item in items:
+        coins.append(item['token_name'])
+    
+    return mode(coins)
