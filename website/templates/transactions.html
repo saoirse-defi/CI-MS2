@@ -3,16 +3,17 @@
 {% block content %}
 
         <div class="container-fluid md-2 mb-2" id="transaction-table">
-            <h4 class="text-center">Etherum Transaction History</h4>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="ethTable">
+                <table class="table table-bordered table-success table-striped table-hover caption-top" data-toggle="table" data-patination="true" data-page-length='10' data-search="true" id="ethTable">
+                    <caption>Ethereum Transactions</caption>
                     <thead>
                         <tr class="bg-dark text-white">
                             {% for header in transaction_table_headings %}
                             <th>{{ header }}</th>
                             {% endfor %}
                         </tr>
-                        
+                    </thead>
+                    <tbody>
                         {% for data in transaction_list %}                
                             <tr>
                                 <td>{{ data['time']|safe }}</td>
@@ -37,7 +38,7 @@
                                 <td>{{ data['gas_used'] }} Eth</td>
                             </tr>
                         {% endfor %}
-                    </thead>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -46,14 +47,15 @@
         <div class="container-fluid md-2 mb-2" id="erc20-transaction-table">
             <h4 class="text-center">ERC-20 Transaction History</h4>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" data-toggle="table" data-patination="true" data-search="true" id="erc20-table">
+                <table class="table table-bordered table-dark table-hover" data-toggle="table" data-patination="true" data-search="true" data-page-length='10' id="erc20-table">
                     <thead>
                         <tr class="bg-dark text-white">
                             {% for header in transaction_table_headings %}
                             <th>{{ header }}</th>
                             {% endfor %}
                         </tr>
-                        
+                    </thead>
+                    <tbody>
                         {% for data in erc20_transaction_list %}                
                             <tr>
                                 <td>{{ data['time'] }}</td>
@@ -74,7 +76,7 @@
                                 <td>{{ data['gas_used'] }} Eth</td>
                             </tr>
                         {% endfor %}
-                    </thead>
+                    </tbody>
                 </table>
             </div>
         </div>
