@@ -29,8 +29,8 @@
         <div class="altcoin-article">
             <a class="article-link" href={{ article['url']|safe }} target="_blank">{{ article['title']|safe }}</a>
             <span class="article-source"> - {{ article['author']|safe }}</span>
-            <span class="article-date"> - {{ article['published']|safe }}</span> <!--Would like to add time elapsed since published-->
-            <span class="article-date"> - {{ article['published']|safe }}</span>
+            <span class="article-date"> - {{ article['published']|safe}}</span> <!--Would like to add time elapsed since published-->
+            <span class="article-date"> - {{ current_time }}</span>
         </div>
         {% endfor %}
     </div>
