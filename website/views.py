@@ -5,42 +5,29 @@ from website import webscrap
 from website import etherscan_api
 from website import models
 from website import mediastack
-from datetime import datetime
+from datetime import datetime, date
+import time
 from dateutil import parser
 
-
-search_terms = ['bitcoin-news/', 'ethereum-news/', 'nft-news/']
-
-links_bitcoin = webscrap.scrape(search_terms[0])
-
-links_ethereum = webscrap.scrape(search_terms[1])
-
-links_nft = webscrap.scrape(search_terms[2])
+address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
+transaction_list = etherscan_api.etherscan_transactions(address)
+erc20_transaction_list = etherscan_api.erc20_transactions(address)
+fav_coin_names = etherscan_api.find_fav_coin_names(erc20_transaction_list)
 
 views = Blueprint('views', __name__)
-
 
 @views.route('/')
 @views.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
-    address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
-    transaction_list = etherscan_api.etherscan_transactions(address)
-    erc20_transaction_list = etherscan_api.erc20_transactions(address)
-
     gas_price_dict = etherscan_api.etherscan_gas()
     gas_total = etherscan_api.find_total_gas_spent(transaction_list)
     fav_coins = etherscan_api.find_fav_coins(erc20_transaction_list)
-    fav_coin_names = etherscan_api.find_fav_coin_names(erc20_transaction_list)
-
     fav_token = etherscan_api.find_fav_token(erc20_transaction_list)
-
     price_dict = cmp_api.get_price_data(fav_coins)
-
     highest_gas_eth = etherscan_api.find_highest_gas(transaction_list)
     highest_gas_erc20 = etherscan_api.find_highest_gas(erc20_transaction_list)
     highest_gas = int(max(highest_gas_eth, highest_gas_erc20))
-
     average_gas_ethereum = etherscan_api.find_average_gas(transaction_list)
     average_gas_erc20 = etherscan_api.find_average_gas(erc20_transaction_list)
 
@@ -64,28 +51,13 @@ def home():
                            average_gas_erc20=average_gas_erc20)
 
 
-@views.route('/news')
-def news():
-    return render_template('news.html',
-                           user=current_user,
-                           links_bitcoin=links_bitcoin,
-                           links_ethereum=links_ethereum,
-                           links_nft=links_nft)
-
-
-
 @views.route('/news2')
 def news2():
     bitcoin_stream = mediastack.mediastack_scrape('bitcoin')
     ethereum_stream = mediastack.mediastack_scrape('ethereum')
-
-    address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
-    erc20_transaction_list = etherscan_api.erc20_transactions(address)
-
-    fav_coin_names = etherscan_api.find_fav_coin_names(erc20_transaction_list)
-
     altcoin_stream = mediastack.altcoin_news(fav_coin_names)
-    current_time = parser.parse(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+    current_time = datetime.now() # still need to subtract time to show time elapsed
 
     return render_template('news2.html',
                            user=current_user,
