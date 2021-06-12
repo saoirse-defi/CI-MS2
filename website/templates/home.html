@@ -21,12 +21,21 @@
         <h4>Please sign a transaction using Metamask to customise your Hashboard: </h4>
         <button id="btn-login">Link Metamask</button>
         {% endif %}
+
+        <form method="POST"> <!--Form to change ethereum address-->
+            <div class="form-group">
+                <div class="form-control">
+                    <input type="text" class="form-control" id="new-eth" name="new-eth" placeholder="Change Your Public Ethereum Address Here: "/>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
         
         <div class="container" id="favourite-coins">
             <span>Contracts you have interacted with:</span><br>
             <p>{{ fav_coin_names }}</p>
 
-            <span>favourite Contract:</span>
+            <span>Favourite Contract:</span>
             <h5>{{ fav_token }}</h5>
         </div>
 
