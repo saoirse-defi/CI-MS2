@@ -52,12 +52,42 @@ def erc20_transactions(address):
             'gas_price': Web3.fromWei(int(transaction['gasPrice']), 'ether') * int('1000000000'),
             'gas_used': round(Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether'), 6),
             'token_name': transaction['tokenName'],
-            'token_symbol': transaction['tokenSymbol']
+            'token_symbol': transaction['tokenSymbol'],
+            'contract_address': transaction['contractAddress']
         }
 
         erc20_transaction_list.append(data)
     
     return erc20_transaction_list
+
+
+def nft_transactions(address):
+    API_KEY = "PQWGH496A8A1H3YV5TKWNVCPHJZ3S7ITHA"
+    url = "https://api.etherscan.io/api?module=account&action=tokennfttx&address=" + address + "&startblock=0&endblock=999999999&sort=asc&apikey=" + API_KEY
+
+    response = requests.get(url)
+    response_json = response.json()
+    erc721 = response_json.get("result")
+
+    erc721_transaction_list = []
+
+    for transaction in erc721:
+        data = {
+            'time': time.strftime("%Y-%m-%d %H:%M", time.localtime(int(transaction['timeStamp']))),
+            'hash': transaction['hash'],
+            'from': transaction['from'],
+            'to': transaction['to'],
+            'gas_price': Web3.fromWei(int(transaction['gasPrice']), 'ether') * int('1000000000'),
+            'gas_used': round(Web3.fromWei(int(transaction['gasPrice']) * int(transaction['gasUsed']), 'ether'), 6),
+            'token_name': transaction['tokenName'],
+            'token_symbol': transaction['tokenSymbol'],
+            'contract_address': transaction['contractAddress'],
+            'token_id': int(transaction['tokenID'])
+        }
+
+        erc721_transaction_list.append(data)
+    
+    return erc721_transaction_list
 
 
 def etherscan_gas():
