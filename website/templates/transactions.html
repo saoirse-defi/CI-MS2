@@ -30,12 +30,12 @@
                                     data-bs-placement="bottom" 
                                     title={{ data['value'|safe] }}>{{ threeDecimals(data['value']) }}</td>
                                 {% if data['token_symbol'] %}
-                                <td>{{ data['token_symbol']}}</td>
+                                <td><a href="{{data['website']}}">{{ data['token_symbol']}}</a></td>
                                 {% else %}
                                 <td>Eth</td>
                                 {% endif %}
-                                <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
-                                <td>{{ data['gas_used'] }} Eth</td>
+                                <td>{{ toInt(data['gas_price']|safe) }}</td>
+                                <td>{{ data['gas_used']|safe }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -72,8 +72,8 @@
                                     data-bs-placement="bottom" 
                                     title={{ data['value'|safe] }}>{{ threeDecimals(data['value']) }}</td>
                                 <td>{{ data['token_symbol']}}</td>
-                                <td>{{ toInt(data['gas_price']|safe) }} Gwei</td>
-                                <td>{{ data['gas_used'] }} Eth</td>
+                                <td>{{ toInt(data['gas_price']|safe) }}</td>
+                                <td>{{ data['gas_used'] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
