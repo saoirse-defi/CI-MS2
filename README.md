@@ -2,6 +2,10 @@
 
 ## Introduction
 
+In response to the financial crisis of 2008, Satoshi Nakamoto released the Bitcoin whitepaper outlining the first decentralised public ledger technology to hit the world stage.
+The network has stood strong to this day and inspired 1000s of projects build off of Satoshi's vision of a decentralised world. We now have a robust ecosystem of smart contract, NFT and decentralised financed platforms.
+Pandora's box has been opened and there is no turning back.
+
 One of the main benefits of cryptocurrencies is the public availability of the blockchain data. Previously corporations would protect vast silos of data in order to monetize it & increase their stranglehold on the market.
 Public blockchains granted software developers to the ability to compete with much larger corporations by providing value to the user & not by monetizing siloed data.
 
