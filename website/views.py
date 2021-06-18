@@ -67,12 +67,40 @@ def news2():
                            current_time=current_time)
 
 
+@views.route('/nft')
+def nft():
+    address = "0x72BFb4d1Ae160552B44F9c99Ff56d9311b5941f4"
+    nft_stream = etherscan_api.nft_transactions(address)
+    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Token ID', 'Token Involved', 'Gas Price (GWEI)', 'Gas Spent (ETH)']
+    
+    def shorten2(string):
+        return "0x..." + string[62:]
+
+    def shorten(string):
+        return "0x..." + string[38:]
+
+    def toInt(x):
+        return int(float(x))
+
+    def threeDecimals(y):
+        return "%.3f" % y
+
+    return render_template('nft.html',
+                           user=current_user,
+                           nft_stream=nft_stream,
+                           transaction_table_headings=transaction_table_headings,
+                           shorten=shorten,
+                           shorten2=shorten2,
+                           toInt=toInt,
+                           threeDecimals=threeDecimals)
+
+
 @views.route('/transactions')
 def transactions():
     address = "0x6BF65C8278674FE0F6EF847c3eea95f3b8481178"
     transaction_list = etherscan_api.etherscan_transactions(address)
     erc20_transaction_list = etherscan_api.erc20_transactions(address)
-    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Value', 'Token Involved', 'Gas Price', 'Gas Spent']
+    transaction_table_headings = ['Date created', 'Hash', 'To', 'From', 'Value', 'Token Involved', 'Gas Price (GWEI)', 'Gas Spent (ETH)']    
 
     def shorten(string):
         return "0x..." + string[38:]
